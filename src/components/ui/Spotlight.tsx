@@ -1,4 +1,7 @@
+"use client";
+
 import { cn } from "@/utils/cn";
+import { useEffect, useState } from "react";
 
 type SpotlightProps = {
 	className?: string;
@@ -6,10 +9,18 @@ type SpotlightProps = {
 };
 
 export const Spotlight = ({ className, fill }: SpotlightProps) => {
+	const [isReady, setIsReady] = useState(false);
+
+	useEffect(() => {
+		const id = requestAnimationFrame(() => setIsReady(true));
+		return () => cancelAnimationFrame(id);
+	}, []);
+
 	return (
 		<svg
 			className={cn(
-				"animate-spotlight pointer-events-none absolute z-1  h-[169%] w-[138%] lg:w-[84%] opacity-0",
+				"pointer-events-none absolute z-1 h-[169%] w-[138%] lg:w-[84%] opacity-0",
+				isReady && "animate-spotlight",
 				className
 			)}
 			xmlns="http://www.w3.org/2000/svg"
