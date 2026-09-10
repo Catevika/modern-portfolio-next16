@@ -22,6 +22,7 @@
 	--color-ring: hsl(var(--ring));
 	--radius: var(--radius);
 	--color-sky-500: hsl(var(--sky-500));
+	--color-purple: hsl(var(--purple-500));
 }
 
 :root {
@@ -47,6 +48,7 @@
 	--radius: 0.5rem;
 
 	--sky-500: 199 100% 48%;
+	--purple: 292.5 100% 66.3%;
 }
 
 .dark {
@@ -71,6 +73,7 @@
 	--ring: 220 25% 85%;
 
 	--sky-500: 199 100% 48%;
+	--purple: 292.5 100% 66.3%;
 }
 
 @layer base {

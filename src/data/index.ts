@@ -241,16 +241,22 @@ export const workExperience = [
 ];
 
 export const socialMedia = [
-  {
-    id: 1,
-    img: "/git.svg",
-  },
-  {
-    id: 2,
-    img: "/twit.svg",
-  },
-  {
-    id: 3,
-    img: "/link.svg",
-  },
+	{
+		id: 1,
+		img: "/git.svg",
+		width: 19,
+		height: 18,
+	},
+	{
+		id: 2,
+		img: "/twit.svg",
+		width: 17,
+		height: 14,
+	},
+	{
+		id: 3,
+		img: "/link.svg",
+		width: 19,
+		height: 18,
+	},
 ];
