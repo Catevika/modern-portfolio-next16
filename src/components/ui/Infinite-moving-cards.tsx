@@ -2,7 +2,7 @@
 
 import { cn } from "@/utils/cn";
 import Image from "next/image";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 export const InfiniteMovingCards = ({
 	items,
@@ -24,6 +24,7 @@ export const InfiniteMovingCards = ({
 }) => {
 	const containerRef = React.useRef<HTMLDivElement>(null);
 	const scrollerRef = React.useRef<HTMLUListElement>(null);
+	const [isPaused, setIsPaused] = useState(false);
 
 	const getDirection = useCallback(() => {
 		if (scrollerRef.current) {
@@ -35,7 +36,9 @@ export const InfiniteMovingCards = ({
 	const getSpeed = useCallback(() => {
 		if (scrollerRef.current) {
 			const duration =
-				speed === "fast" ? "20s" : speed === "normal" ? "40s" : "80s";
+				speed === "fast" ? "20s"
+				: speed === "normal" ? "40s"
+				: "80s";
 			scrollerRef.current.style.animationDuration = duration;
 		}
 	}, [speed]);
@@ -74,6 +77,10 @@ export const InfiniteMovingCards = ({
 		return addAnimation();
 	}, [addAnimation]);
 
+	const togglePause = () => {
+		setIsPaused((prev) => !prev);
+	};
+
 	return (
 		<div
 			ref={containerRef}
@@ -81,16 +88,32 @@ export const InfiniteMovingCards = ({
 				"scroller relative z-20 w-screen overflow-hidden mask-[linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
 				className
 			)}
+			onClick={togglePause}
+			aria-label="Pause or resume testimonials"
+			role="button"
+			tabIndex={0}
+			onKeyDown={(event) => {
+				if (event.key === "Enter" || event.key === " ") {
+					event.preventDefault();
+					togglePause();
+				}
+			}}
 		>
 			<ul
 				ref={scrollerRef}
 				className={cn(
-					"flex min-w-full shrink-0 gap-16 py-4 w-max flex-nowrap",
-					pauseOnHover && "hover:[animation-play-state:paused]"
+					"flex min-w-full shrink-0 gap-16 py-4 w-max flex-nowrap cursor-pointer",
+					(pauseOnHover || isPaused) && "hover:[animation-play-state:paused]",
+					isPaused && "[animation-play-state:paused]"
 				)}
 				style={{
-					animation: `scroll ${speed === "fast" ? "20s" : speed === "normal" ? "40s" : "80s"} linear infinite`,
+					animation: `scroll ${
+						speed === "fast" ? "20s"
+						: speed === "normal" ? "40s"
+						: "80s"
+					} linear infinite`,
 					animationDirection: direction === "left" ? "normal" : "reverse",
+					animationPlayState: isPaused ? "paused" : "running",
 				}}
 			>
 				{items.map((item) => (
