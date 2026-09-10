@@ -103,6 +103,15 @@
 	}
 }
 
+@keyframes scroll {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(calc(-50% - 0.5rem));
+	}
+}
+
 @layer utilities {
 	.heading {
 		@apply font-bold text-4xl text-center;

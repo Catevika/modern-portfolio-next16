@@ -153,8 +153,11 @@ const config = {
 					},
 				},
 				scroll: {
-					to: {
-						transform: "translate(calc(-50% - 0.5rem))",
+					"0%": {
+						transform: "translateX(0)",
+					},
+					"100%": {
+						transform: "translateX(calc(-50% - 0.5rem))",
 					},
 				},
 			},
@@ -168,14 +171,22 @@ const config = {
 				third: "moveInCircle 40s linear infinite",
 				fourth: "moveHorizontal 40s ease infinite",
 				fifth: "moveInCircle 20s ease infinite",
-				scroll:
-					"scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+				scroll: "scroll var(--animation-duration, 40s) linear infinite",
 			},
 		},
 	},
 	plugins: [
 		tailwindcssAnimate,
-		function ({ matchUtilities, theme }: { matchUtilities: (utilities: Record<string, (value: string) => Record<string, string>>, options?: { values?: Record<string, string>; type?: string | string[] }) => void; theme: (path: string, defaultValue?: unknown) => unknown; }) {
+		function ({
+			matchUtilities,
+			theme,
+		}: {
+			matchUtilities: (
+				utilities: Record<string, (value: string) => Record<string, string>>,
+				options?: { values?: Record<string, string>; type?: string | string[] }
+			) => void;
+			theme: (path: string, defaultValue?: unknown) => unknown;
+		}) {
 			matchUtilities(
 				{
 					"bg-grid": (value: string) => ({
@@ -200,7 +211,13 @@ const config = {
 				}
 			);
 		},
-		function ({ addBase, theme }: { addBase: (base: Record<string, Record<string, string>>) => void; theme: (path: string, defaultValue?: unknown) => unknown; }) {
+		function ({
+			addBase,
+			theme,
+		}: {
+			addBase: (base: Record<string, Record<string, string>>) => void;
+			theme: (path: string, defaultValue?: unknown) => unknown;
+		}) {
 			const allColors = flattenColorPalette(theme("colors") as ColorPalette);
 			const newVars = Object.fromEntries(
 				Object.entries(allColors).map(([key, value]) => [`--${key}`, value])
